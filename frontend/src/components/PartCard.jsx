@@ -4,6 +4,18 @@ function PartCard({ part }) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [imageError, setImageError] = useState(false);
 
+  // Hebrew translations for common values
+  const translateCondition = (condition) => {
+    const translations = {
+      'New': 'חדש',
+      'Used': 'משומש',
+      'Vintage': 'ווינטיג',
+      'Unknown': 'לא ידוע',
+      'Unverified': 'לא מאומת'
+    };
+    return translations[condition] || condition;
+  };
+
   const toggleDescription = () => {
     setIsExpanded(!isExpanded);
   };
@@ -12,7 +24,7 @@ function PartCard({ part }) {
     setImageError(true);
   };
 
-  const description = part.description_he || '';
+  const description = part.description_he || part.description_en || 'אין תיאור זמין';
   const isLongDescription = description.length > 150;
   const displayDescription = isExpanded ? description : `${description.substring(0, 150)}${isLongDescription ? '...' : ''}`;
 
@@ -22,11 +34,11 @@ function PartCard({ part }) {
   const isSchmiedmann = source === 'Schmiedmann';
   const linkUrl = part.item_url || part.ebay_url; // This field contains the URL regardless of source
   
-  let linkText = 'View on eBay'; // Default
+  let linkText = 'צפה ב-eBay'; // Default
   if (isAliExpress) {
-    linkText = 'View on AliExpress';
+    linkText = 'צפה ב-AliExpress';
   } else if (isSchmiedmann) {
-    linkText = 'View on Schmiedmann';
+    linkText = 'צפה ב-Schmiedmann';
   }
   
   // Fallback image for missing/broken images
@@ -60,13 +72,13 @@ function PartCard({ part }) {
         </p>
         {isLongDescription && (
           <button onClick={toggleDescription} className="read-more-btn">
-            {isExpanded ? 'Read Less' : 'Read More'}
+            {isExpanded ? 'קרא פחות' : 'קרא עוד'}
           </button>
         )}
         <div className="item-info">
-          {part.size && <span className="size-info">Size: {part.size}</span>}
-          {part.condition && <span className="condition-info">Condition: {part.condition}</span>}
-          {part.authenticity && <span className="authenticity-info">Auth: {part.authenticity}</span>}
+          {part.size && <span className="size-info">מידה: {part.size}</span>}
+          {part.condition && <span className="condition-info">מצב: {translateCondition(part.condition)}</span>}
+          {part.authenticity && <span className="authenticity-info">אמתות: {translateCondition(part.authenticity)}</span>}
         </div>
         <p className="price">${part.price}</p>
         <a 

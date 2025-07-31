@@ -139,14 +139,14 @@ function App() {
   return (
     <div className="App">
       <header className="app-header">
-        <h1>🐐 Cristiano Ronaldo Collectibles</h1>
-        <p>Authentic jerseys, memorabilia, and collectibles from the GOAT's legendary career</p>
+        <h1>🐐 אוסף כריסטיאנו רונאלדו</h1>
+        <p>חולצות מקוריות, מזכרות ופריטי אספנות מהקריירה האגדית של ה-GOAT</p>
         
         <div className="filter-section">
           <div className="era-filters">
-            <h3>Career Era</h3>
+            <h3>תקופת קריירה</h3>
             <div className="filter-buttons">
-              <button onClick={() => setEra('')} className={era === '' ? 'active' : ''}>All</button>
+              <button onClick={() => setEra('')} className={era === '' ? 'active' : ''}>הכל</button>
               <button onClick={() => setEra('Sporting')} className={era === 'Sporting' ? 'active' : ''}>Sporting</button>
               <button onClick={() => setEra('United')} className={era === 'United' ? 'active' : ''}>United</button>
               <button onClick={() => setEra('Madrid')} className={era === 'Madrid' ? 'active' : ''}>Madrid</button>
@@ -157,19 +157,19 @@ function App() {
           </div>
           
           <div className="category-filters">
-            <h3>Item Category</h3>
+            <h3>קטגוריית פריט</h3>
             <div className="filter-buttons">
-              <button onClick={() => setCategory('')} className={category === '' ? 'active' : ''}>All</button>
-              <button onClick={() => setCategory('jerseys')} className={category === 'jerseys' ? 'active' : ''}>Jerseys</button>
-              <button onClick={() => setCategory('boots')} className={category === 'boots' ? 'active' : ''}>Boots</button>
-              <button onClick={() => setCategory('memorabilia')} className={category === 'memorabilia' ? 'active' : ''}>Memorabilia</button>
-              <button onClick={() => setCategory('signed_items')} className={category === 'signed_items' ? 'active' : ''}>Signed Items</button>
-              <button onClick={() => setCategory('cards')} className={category === 'cards' ? 'active' : ''}>Cards</button>
+              <button onClick={() => setCategory('')} className={category === '' ? 'active' : ''}>הכל</button>
+              <button onClick={() => setCategory('jerseys')} className={category === 'jerseys' ? 'active' : ''}>חולצות</button>
+              <button onClick={() => setCategory('boots')} className={category === 'boots' ? 'active' : ''}>נעליים</button>
+              <button onClick={() => setCategory('memorabilia')} className={category === 'memorabilia' ? 'active' : ''}>מזכרות</button>
+              <button onClick={() => setCategory('signed_items')} className={category === 'signed_items' ? 'active' : ''}>פריטים חתומים</button>
+              <button onClick={() => setCategory('cards')} className={category === 'cards' ? 'active' : ''}>כרטיסים</button>
             </div>
           </div>
           
           <div className="source-filters">
-            <h3>Sources</h3>
+            <h3>מקורות</h3>
             <div className="source-checkboxes">
               {AVAILABLE_SOURCES.map(source => (
                 <label key={source} className="source-checkbox">
@@ -191,8 +191,30 @@ function App() {
             <PartCard key={`${part.id}-${part.item_url || part.ebay_url}`} part={part} />
           ))}
         </div>
-        {isLoading && <div className="loading-message">Loading Ronaldo items...</div>}
-        {!hasMore && <div className="end-of-results">You've reached the end of the collection.</div>}
+        {isLoading && (
+          <div className="loading-message">
+            <div className="loading-content">
+              <div className="loading-spinner"></div>
+              טוען פריטי רונאלדו...
+            </div>
+          </div>
+        )}
+        {!hasMore && parts.length > 0 && (
+          <div className="end-of-results">
+            <div className="end-content">
+              🏆 הגעת לסוף האוסף של רונאלדו! 🏆
+              <p>נמצאו {parts.length} פריטים מדהימים</p>
+            </div>
+          </div>
+        )}
+        {!isLoading && parts.length === 0 && (
+          <div className="no-results">
+            <div className="no-results-content">
+              ⚽ לא נמצאו פריטים מתאימים
+              <p>נסה לשנות את הפילטרים שלך</p>
+            </div>
+          </div>
+        )}
       </main>
     </div>
   );
