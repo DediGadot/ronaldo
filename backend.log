@@ -1,8 +1,41 @@
-INFO:     Started server process [231707]
+INFO:     Started server process [238678]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
 INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
-INFO:     127.0.0.1:54828 - "GET /api/items/?skip=0&limit=48 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54840 - "GET /api/items/?skip=0&limit=48 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54842 - "GET /api/items/?skip=0&limit=48 HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54848 - "GET /api/items/?skip=0&limit=48 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47396 - "GET /api/items/?skip=0&limit=48 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47404 - "GET /api/items/?skip=0&limit=48 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47416 - "GET /api/items/?skip=0&limit=48 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47422 - "GET /api/items/?skip=0&limit=48 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47430 - "GET /api/items/?skip=48&limit=48&era=Sporting HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47442 - "GET /api/items/?skip=0&limit=48&era=United HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49776 - "GET /api/items/?skip=48&limit=48 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60456 - "GET /api/items/?skip=96&limit=48&era=Sporting HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51054 - "GET /api/items/?skip=0&limit=48 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51742 - "GET /api/items/?skip=48&limit=48&category=jerseys HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51754 - "GET /api/items/?skip=96&limit=48&era=Sporting&category=jerseys HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50236 - "GET /api/items/?skip=0&limit=48&category=jerseys HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50242 - "GET /api/items/?skip=48&limit=48&category=boots HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51914 - "GET /api/items/?skip=0&limit=48&category=jerseys HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43768 - "GET /api/items/?skip=48&limit=48&category=cards HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34870 - "GET /api/items/?skip=0&limit=48&category=signed_items HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60720 - "GET /api/items/?skip=48&limit=48&category=signed_items HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60722 - "GET /api/items/?skip=48&limit=48&category=signed_items HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53284 - "GET /api/items/?skip=48&limit=48&category=memorabilia HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48136 - "GET /api/items/?skip=0&limit=48 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35314 - "GET /api/items/?skip=48&limit=48&era=United HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50532 - "GET /api/items/?skip=0&limit=48&era=Sporting HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43282 - "GET /api/items/?skip=48&limit=48&era=Madrid HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50178 - "GET /api/items/?skip=0&limit=48&era=Juventus HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59212 - "GET /api/items/?skip=0&limit=48&era=Juventus&source=Schmiedmann HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59214 - "GET /api/items/?skip=0&limit=48&era=Juventus&source=eBay HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42350 - "GET /api/items/?skip=0&limit=48&era=Juventus&source=Schmiedmann HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42480 - "GET /api/items/?skip=0&limit=48&era=Madrid&source=Schmiedmann HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42494 - "GET /api/items/?skip=0&limit=48&era=Sporting&source=Schmiedmann HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40904 - "GET /api/items/?skip=0&limit=48 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40906 - "GET /api/items/?skip=0&limit=48 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40920 - "GET /api/items/?skip=0&limit=48 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40934 - "GET /api/items/?skip=0&limit=48 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40938 - "GET /api/items/?skip=48&limit=48&era=Sporting HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40954 - "GET /api/items/?skip=0&limit=48&era=United HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40964 - "GET /api/items/?skip=48&limit=48&era=Madrid HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50080 - "GET /api/items/?skip=0&limit=48&era=Juventus HTTP/1.1" 200 OK
