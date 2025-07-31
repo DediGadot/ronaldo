@@ -1,0 +1,26 @@
+INFO:     Started server process [212800]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:34352 - "GET /api/items/?limit=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36466 - "GET /api/items/?era=Sporting&limit=3 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41876 - "GET /api/parts/?skip=0&limit=48 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41882 - "GET /api/parts/?skip=0&limit=48 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41890 - "GET /api/parts/?skip=0&limit=48 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41898 - "GET /api/parts/?skip=0&limit=48 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56942 - "GET /api/items/?skip=0&limit=48 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56944 - "GET /api/items/?skip=0&limit=48 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56946 - "GET /api/items/?skip=0&limit=48 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56960 - "GET /api/items/?skip=0&limit=48 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49764 - "GET /api/items/?skip=48&limit=48&category=boots HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39734 - "GET /api/items/?skip=96&limit=48&category=memorabilia HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39748 - "GET /api/items/?skip=144&limit=48&category=signed_items HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37488 - "GET /api/items/?skip=0&limit=48&category=cards HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37492 - "GET /api/items/?skip=48&limit=48 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45206 - "GET /api/items/?skip=96&limit=48&era=Madrid HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45222 - "GET /api/items/?skip=144&limit=48&era=Juventus HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45236 - "GET /api/items/?skip=0&limit=48&era=Portugal HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57448 - "GET /api/items/?skip=48&limit=48&era=Al-Nassr HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43920 - "GET /api/items/?skip=96&limit=48 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45144 - "GET /api/items/?skip=144&limit=48 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42428 - "GET /api/items/?skip=192&limit=48 HTTP/1.1" 200 OK

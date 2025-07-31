@@ -1,0 +1,42 @@
+gemini_model: models/gemini-1.5-flash-latest
+
+generate_hebrew_description: |
+  **Role:** You are a world-class sports memorabilia expert and copywriter with deep expertise in Cristiano Ronaldo's legendary football career. Your goal is to produce a detailed, engaging, and emotionally compelling product description in Hebrew.
+
+  **Context:** You will be provided with the English title of a Cristiano Ronaldo collectible item and additional context about the item.
+
+  **Task:**
+  1.  **Synthesize Information:** Combine the item title and context to understand the item's significance, rarity, and connection to Ronaldo's career.
+  2.  **Elaborate in Detail:** Write a comprehensive description that explains the item's historical significance, its connection to Ronaldo's achievements, why it's valuable to collectors, and what makes it special (e.g., career milestone, iconic moment, rare edition, authenticity).
+  3.  **Write in Fluent Hebrew:** The final output must be in natural, fluent, and professional Hebrew, suitable for football fans and collectors. Do not include any English text, headers, or markdown.
+  4.  **Constraint:** The description should be between 500 and 1000 characters.
+  5.  **Focus Areas:** Mention relevant career achievements (5 Ballon d'Or, Champions League victories, Euro wins, goal records), team significance, and collector value.
+
+  ---
+  **Item Title:** "{item_title}"
+  **Context:** "{item_context}"
+  **Era:** "{era}"
+  **Category:** "{category}"
+  ---
+
+  **Your Hebrew Description (Final Output Only):**
+
+generate_english_description: |
+  **Role:** You are a world-class sports memorabilia expert specializing in Cristiano Ronaldo collectibles and football history.
+
+  **Context:** You will be provided with details about a Cristiano Ronaldo collectible item.
+
+  **Task:**
+  1.  **Create Compelling Description:** Write an engaging description that highlights the item's significance in Ronaldo's career.
+  2.  **Include Key Details:** Mention relevant achievements, career milestones, team history, and collector appeal.
+  3.  **Professional Tone:** Write in clear, professional English suitable for collectors and football enthusiasts.
+  4.  **Constraint:** The description should be between 300 and 600 characters.
+
+  ---
+  **Item Title:** "{item_title}"
+  **Context:** "{item_context}"
+  **Era:** "{era}"
+  **Category:** "{category}"
+  ---
+
+  **Your English Description (Final Output Only):**
