@@ -44,8 +44,45 @@ function PartCard({ part }) {
   // Fallback image for missing/broken images
   const fallbackImage = 'https://via.placeholder.com/300x220/e9ecef/6c757d?text=No+Image';
 
+  // Enhanced team color detection
+  const getTeamColors = () => {
+    const era = part.era?.toLowerCase() || '';
+    const title = (part.title_en || '').toLowerCase();
+    
+    if (era.includes('madrid') || title.includes('real madrid')) {
+      return { primary: 'rgba(255, 255, 255, 0.1)', secondary: 'rgba(212, 175, 55, 0.1)' };
+    }
+    if (era.includes('united') || title.includes('manchester')) {
+      return { primary: 'rgba(255, 0, 0, 0.1)', secondary: 'rgba(255, 215, 0, 0.1)' };
+    }
+    if (era.includes('juventus') || title.includes('juventus')) {
+      return { primary: 'rgba(255, 255, 255, 0.1)', secondary: 'rgba(0, 0, 0, 0.1)' };
+    }
+    if (era.includes('portugal') || title.includes('portugal')) {
+      return { primary: 'rgba(255, 0, 0, 0.1)', secondary: 'rgba(0, 100, 0, 0.1)' };
+    }
+    if (era.includes('sporting') || title.includes('sporting')) {
+      return { primary: 'rgba(0, 150, 0, 0.1)', secondary: 'rgba(255, 255, 255, 0.1)' };
+    }
+    if (era.includes('al-nassr') || title.includes('nassr')) {
+      return { primary: 'rgba(255, 215, 0, 0.1)', secondary: 'rgba(0, 0, 255, 0.1)' };
+    }
+    return { primary: 'rgba(212, 175, 55, 0.05)', secondary: 'rgba(255, 215, 0, 0.05)' };
+  };
+
+  const teamColors = getTeamColors();
+
   return (
-    <div className="part-card">
+    <div 
+      className="part-card" 
+      style={{
+        background: `
+          linear-gradient(145deg, ${teamColors.primary}, ${teamColors.secondary}),
+          linear-gradient(145deg, rgba(45, 45, 45, 0.9), rgba(58, 58, 58, 0.9))
+        `
+      }}
+    >
+      <div className="football-grass-pattern"></div>
       <div className="part-image-container">
         <img 
           src={imageError ? fallbackImage : (part.img_url || fallbackImage)} 
@@ -54,6 +91,9 @@ function PartCard({ part }) {
         />
         <div className={`source-badge ${isAliExpress ? 'aliexpress' : isSchmiedmann ? 'schmiedmann' : 'ebay'}`}>
           {source}
+        </div>
+        <div className="rarity-indicator">
+          {part.price > 500 ? '⭐⭐⭐' : part.price > 200 ? '⭐⭐' : '⭐'}
         </div>
       </div>
       <div className="part-details">
@@ -76,19 +116,53 @@ function PartCard({ part }) {
           </button>
         )}
         <div className="item-info">
-          {part.size && <span className="size-info">מידה: {part.size}</span>}
-          {part.condition && <span className="condition-info">מצב: {translateCondition(part.condition)}</span>}
-          {part.authenticity && <span className="authenticity-info">אמתות: {translateCondition(part.authenticity)}</span>}
+          {part.size && <span className="size-info">📏 מידה: {part.size}</span>}
+          {part.condition && <span className="condition-info">🔍 מצב: {translateCondition(part.condition)}</span>}
+          {part.authenticity && <span className="authenticity-info">✅ אמתות: {translateCondition(part.authenticity)}</span>}
+        </div>
+        <div className="football-stats">
+          <div className="stat-item">
+            <span className="stat-icon">⚽</span>
+            <span className="stat-label">פריט ספורט</span>
+          </div>
+          {part.year && (
+            <div className="stat-item">
+              <span className="stat-icon">📅</span>
+              <span className="stat-label">{part.year}</span>
+            </div>
+          )}
+          <div className="stat-item">
+            <span className="stat-icon">💎</span>
+            <span className="stat-label">
+              {part.price > 500 ? 'נדיר' : part.price > 200 ? 'איכותי' : 'נגיש'}
+            </span>
+          </div>
         </div>
         <p className="price">${part.price}</p>
-        <a 
-          href={linkUrl} 
-          target="_blank" 
-          rel="noopener noreferrer" 
-          className={`marketplace-link ${isAliExpress ? 'aliexpress-link' : isSchmiedmann ? 'schmiedmann-link' : 'ebay-link'}`}
-        >
-          {linkText}
-        </a>
+        <div className="card-actions">
+          <a 
+            href={linkUrl} 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className={`marketplace-link ${isAliExpress ? 'aliexpress-link' : isSchmiedmann ? 'schmiedmann-link' : 'ebay-link'}`}
+          >
+            <span className="action-icon">🛒</span>
+            {linkText}
+          </a>
+          <button 
+            className="favorite-btn"
+            title="הוסף למועדפים"
+            onClick={(e) => {
+              e.preventDefault();
+              // Add to favorites functionality can be implemented here
+              const btn = e.currentTarget;
+              btn.classList.toggle('favorited');
+              btn.innerHTML = btn.classList.contains('favorited') ? '❤️' : '🤍';
+            }}
+          >
+            🤍
+          </button>
+        </div>
       </div>
     </div>
   );

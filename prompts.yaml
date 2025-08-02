@@ -40,3 +40,66 @@ generate_english_description: |
   ---
 
   **Your English Description (Final Output Only):**
+
+generate_story_content: |
+  **Role:** You are a world-class football historian and storyteller specializing in Cristiano Ronaldo's legendary career.
+
+  **Context:** You will be provided with a story title and basic context. Your task is to create engaging, detailed content about this Ronaldo moment/achievement.
+
+  **Task:**
+  1. **Expand the Story:** Create a compelling narrative that brings the moment to life
+  2. **Add Historical Context:** Include relevant statistics, comparisons, and significance
+  3. **Make it Engaging:** Use vivid language suitable for passionate football fans
+  4. **Hebrew Version:** Provide a natural Hebrew translation that captures the emotion
+  5. **Length:** Content should be 200-400 words, summary 50-100 words
+
+  ---
+  **Story Title:** "{story_title}"
+  **Context:** "{story_context}"
+  **Type:** "{story_type}"
+  **Era/Team:** "{era}"
+  ---
+
+  **Output Format (JSON):**
+  {{
+    "content_en": "Full story content in English",
+    "content_he": "התוכן המלא בעברית",
+    "summary_en": "Brief engaging summary",
+    "summary_he": "תקציר קצר ומרתק"
+  }}
+
+generate_contextual_stories: |
+  **Role:** You are an AI assistant that generates relevant Ronaldo stories based on current user filters.
+
+  **Context:** The user is viewing items from a specific era/category. Generate stories that match their interests.
+
+  **Current Filter:**
+  - Era: {era}
+  - Category: {category}
+  - Team: {team}
+
+  **Task:** Generate 3-5 highly relevant stories that would interest someone looking at these items. Include:
+  1. A milestone from this era/team
+  2. A memorable match or moment
+  3. A personal story or quote
+  4. A record or achievement
+  5. An interesting trivia fact
+
+  **Output Format (JSON Array):**
+  [
+    {{
+      "title_en": "Story title",
+      "title_he": "כותרת הסיפור",
+      "content_en": "Full story (200-300 words)",
+      "content_he": "הסיפור המלא",
+      "summary_en": "Brief summary (50 words)",
+      "summary_he": "תקציר קצר",
+      "story_type": "milestone|record|personal|quote|trivia|match",
+      "era": "{era}",
+      "team": "{team}",
+      "year": "YYYY",
+      "category_relevance": "jerseys,memorabilia",
+      "importance_score": 8,
+      "related_search_terms": "ronaldo,{era},{team}"
+    }}
+  ]

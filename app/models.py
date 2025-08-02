@@ -43,6 +43,29 @@ class Item(Base):
     team = Column(String)  # Sporting CP, Manchester United, Real Madrid, Juventus, Portugal, Al-Nassr
     fetched_at = Column(DateTime, default=datetime.datetime.utcnow)
 
+# Ronaldo Stories and Facts
+class Story(Base):
+    __tablename__ = "stories"
+
+    id = Column(Integer, primary_key=True, index=True)
+    title_en = Column(String, index=True)
+    title_he = Column(String, index=True)
+    content_en = Column(String)  # Full story content
+    content_he = Column(String)  # Hebrew translation
+    summary_en = Column(String)  # Brief summary for collapsed view
+    summary_he = Column(String)  # Hebrew summary
+    story_type = Column(String, index=True)  # milestone, record, personal, quote, trivia, match
+    era = Column(String, index=True)  # Associated era (can be null for general stories)
+    team = Column(String, index=True)  # Associated team
+    year = Column(String)  # Year of the event
+    category_relevance = Column(String)  # Which item categories this relates to
+    media_url = Column(String)  # Optional image/video URL
+    source_url = Column(String)  # Source of the information
+    importance_score = Column(Integer, default=5)  # 1-10 for sorting/filtering
+    related_search_terms = Column(String)  # Comma-separated terms for finding related items
+    created_at = Column(DateTime, default=datetime.datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.datetime.utcnow, onupdate=datetime.datetime.utcnow)
+
 # Keep Part class for backward compatibility during migration
 class Part(Base):
     __tablename__ = "parts"

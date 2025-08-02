@@ -45,6 +45,94 @@ body {
   overflow: hidden;
 }
 
+/* Football field overlay */
+.football-field-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 10px,
+      rgba(255, 255, 255, 0.02) 10px,
+      rgba(255, 255, 255, 0.02) 20px
+    ),
+    radial-gradient(circle at 50% 50%, rgba(0, 150, 0, 0.05) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Stadium lights effect */
+.stadium-lights {
+  position: absolute;
+  top: -20px;
+  left: 0;
+  right: 0;
+  height: 40px;
+  background: 
+    radial-gradient(ellipse 15% 100% at 10% 0%, rgba(255, 255, 255, 0.3) 0%, transparent 70%),
+    radial-gradient(ellipse 15% 100% at 30% 0%, rgba(255, 255, 255, 0.2) 0%, transparent 70%),
+    radial-gradient(ellipse 15% 100% at 50% 0%, rgba(255, 255, 255, 0.3) 0%, transparent 70%),
+    radial-gradient(ellipse 15% 100% at 70% 0%, rgba(255, 255, 255, 0.2) 0%, transparent 70%),
+    radial-gradient(ellipse 15% 100% at 90% 0%, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+  animation: stadiumFlicker 4s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes stadiumFlicker {
+  0%, 100% { opacity: 0.7; }
+  25% { opacity: 1; }
+  50% { opacity: 0.8; }
+  75% { opacity: 1; }
+}
+
+/* Floating football balls */
+.floating-balls {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.football-ball {
+  position: absolute;
+  font-size: 2rem;
+  opacity: 0.1;
+  animation: floatBall 8s ease-in-out infinite;
+}
+
+.ball-1 {
+  top: 20%;
+  left: 10%;
+  animation-delay: 0s;
+}
+
+.ball-2 {
+  top: 60%;
+  right: 15%;
+  animation-delay: 2s;
+}
+
+.ball-3 {
+  top: 40%;
+  left: 80%;
+  animation-delay: 4s;
+}
+
+@keyframes floatBall {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  25% { transform: translateY(-20px) rotate(90deg); }
+  50% { transform: translateY(-10px) rotate(180deg); }
+  75% { transform: translateY(-30px) rotate(270deg); }
+}
+
 .app-header::before {
   content: '';
   position: absolute;
@@ -169,10 +257,62 @@ body {
   font-size: 1.3rem;
   width: 100%;
   direction: rtl;
-  background: linear-gradient(135deg, rgba(212, 175, 55, 0.05) 0%, rgba(255, 215, 0, 0.05) 100%);
+  background: 
+    radial-gradient(circle at center, rgba(212, 175, 55, 0.1) 0%, transparent 70%),
+    linear-gradient(135deg, rgba(212, 175, 55, 0.05) 0%, rgba(255, 215, 0, 0.05) 100%);
   border-radius: 20px;
   margin: 2rem;
   border: 2px solid rgba(212, 175, 55, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.trophy-celebration {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.trophy-icon {
+  font-size: 4rem;
+  animation: trophyBounce 2s ease-in-out infinite;
+}
+
+@keyframes trophyBounce {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  25% { transform: translateY(-10px) rotate(-5deg); }
+  50% { transform: translateY(-5px) rotate(0deg); }
+  75% { transform: translateY(-15px) rotate(5deg); }
+}
+
+.celebration-text {
+  font-weight: 700;
+  text-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+}
+
+.celebration-stats {
+  display: flex;
+  gap: 2rem;
+  margin-top: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+  color: #ccc;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  backdrop-filter: blur(5px);
+}
+
+.stat-icon {
+  font-size: 1.2rem;
 }
 
 .end-content {
@@ -691,6 +831,48 @@ body {
   border-radius: 6px;
 }
 
+/* Casual fan guidance */
+.casual-fan-guide {
+  max-width: 800px;
+  margin: 2rem auto 1rem;
+  padding: 0 1rem;
+}
+
+.guide-tip {
+  background: linear-gradient(135deg, rgba(33, 150, 243, 0.1) 0%, rgba(33, 150, 243, 0.05) 100%);
+  border: 2px solid rgba(33, 150, 243, 0.3);
+  border-radius: 25px;
+  padding: 1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: #81c784;
+  font-weight: 500;
+  backdrop-filter: blur(5px);
+  animation: guideGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes guideGlow {
+  from { box-shadow: 0 0 10px rgba(33, 150, 243, 0.2); }
+  to { box-shadow: 0 0 20px rgba(33, 150, 243, 0.4); }
+}
+
+.tip-icon {
+  font-size: 1.5rem;
+  animation: tipPulse 2s ease-in-out infinite;
+}
+
+@keyframes tipPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
+.tip-text {
+  flex: 1;
+  text-align: right;
+  direction: rtl;
+}
+
 /* Update filter sections for football theme */
 .filter-section {
   display: flex;
@@ -716,6 +898,32 @@ body {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.filter-icon {
+  font-size: 1.5rem;
+  animation: iconBounce 2s ease-in-out infinite;
+}
+
+@keyframes iconBounce {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+.help-tooltip {
+  font-size: 1rem;
+  cursor: help;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+
+.help-tooltip:hover {
+  opacity: 1;
+  transform: scale(1.2);
 }
 
 /* Enhanced filter buttons */
@@ -935,6 +1143,64 @@ html {
   outline-offset: 2px;
 }
 
+/* Enhanced Loading Animations */
+.loading-stadium {
+  position: relative;
+  width: 120px;
+  height: 80px;
+  margin: 0 auto 1rem;
+}
+
+.loading-field {
+  position: absolute;
+  top: 20px;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  background: 
+    linear-gradient(90deg, transparent 45%, rgba(255, 255, 255, 0.1) 50%, transparent 55%),
+    linear-gradient(0deg, rgba(0, 150, 0, 0.2) 0%, rgba(0, 180, 0, 0.1) 100%);
+  border-radius: 50px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.bouncing-ball {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.5rem;
+  animation: ballBounce 1.5s ease-in-out infinite;
+}
+
+@keyframes ballBounce {
+  0%, 100% { transform: translateX(-50%) translateY(0px); }
+  50% { transform: translateX(-50%) translateY(-30px); }
+}
+
+.loading-text {
+  text-align: center;
+}
+
+.loading-dots::after {
+  content: '';
+  animation: loadingDots 1.5s steps(4, end) infinite;
+}
+
+@keyframes loadingDots {
+  0%, 20% { content: ''; }
+  40% { content: '.'; }
+  60% { content: '..'; }
+  80%, 100% { content: '...'; }
+}
+
+.loading-subtitle {
+  font-size: 0.9rem;
+  color: #aaa;
+  margin-top: 0.5rem;
+  font-style: italic;
+}
+
 /* Loading skeleton animation */
 .loading-skeleton {
   background: linear-gradient(90deg, #2d2d2d 25%, #3a3a3a 50%, #2d2d2d 75%);
@@ -954,6 +1220,138 @@ html {
   }
 }
 
+/* Enhanced PartCard styling */
+.football-grass-pattern {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 150, 0, 0.02) 2px,
+      rgba(0, 150, 0, 0.02) 4px
+    );
+  pointer-events: none;
+  z-index: 0;
+}
+
+.rarity-indicator {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  font-size: 0.9rem;
+  z-index: 3;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+}
+
+.football-stats {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin: 1rem 0;
+  padding: 0.75rem;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  backdrop-filter: blur(5px);
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  flex: 1;
+}
+
+.stat-icon {
+  font-size: 1.2rem;
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  color: #ccc;
+  text-align: center;
+  font-weight: 500;
+}
+
+.card-actions {
+  display: flex;
+  gap: 0.75rem;
+  align-items: stretch;
+}
+
+.marketplace-link {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.action-icon {
+  font-size: 1.1rem;
+}
+
+.favorite-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  padding: 12px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+  min-width: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.favorite-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: scale(1.1);
+}
+
+.favorite-btn.favorited {
+  background: rgba(255, 20, 20, 0.2);
+  border-color: rgba(255, 20, 20, 0.5);
+  animation: heartBeat 0.5s ease-in-out;
+}
+
+@keyframes heartBeat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
+/* Enhanced item info styling */
+.item-info {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  direction: rtl;
+  justify-content: flex-start;
+}
+
+.size-info, .condition-info, .authenticity-info {
+  font-size: 0.85rem;
+  color: #aaa;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 4px 8px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  backdrop-filter: blur(3px);
+}
+
 /* Respect user preferences for reduced motion */
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -969,6 +1367,16 @@ html {
 @media (max-width: 768px) {
   .app-header h1 {
     font-size: 2.5rem;
+  }
+  
+  .casual-fan-guide {
+    margin: 1rem auto 0.5rem;
+  }
+  
+  .guide-tip {
+    flex-direction: column;
+    text-align: center;
+    padding: 1rem;
   }
   
   .filter-section {
@@ -997,6 +1405,15 @@ html {
   .part-card:hover {
     transform: translateY(-5px) scale(1.02) !important;
   }
+  
+  .celebration-stats {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .floating-balls {
+    display: none;
+  }
 }
 
 @media (max-width: 480px) {
@@ -1011,5 +1428,19 @@ html {
   
   .part-image-container {
     height: 220px;
+  }
+  
+  .era-filters h3, .category-filters h3, .source-filters h3 {
+    font-size: 1.1rem;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  
+  .trophy-icon {
+    font-size: 3rem;
+  }
+  
+  .stadium-lights {
+    display: none;
   }
 }

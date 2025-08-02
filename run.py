@@ -105,6 +105,28 @@ try:
         else:
             print(f"  ❌ Schmiedmann F10 spider failed: {result.stderr[-200:]}")
     
+    # Always run the stories spider to populate engaging content
+    print("  Running Ronaldo Stories spider...")
+    result = subprocess.run(["scrapy", "crawl", "ronaldo_stories"], 
+                          capture_output=True, text=True)
+    if result.returncode == 0:
+        print("  ✅ Ronaldo Stories spider completed successfully")
+    else:
+        print(f"  ⚠️ Ronaldo Stories spider warning: {result.stderr[-200:]}")
+    
+    # Populate default stories and generate AI content if Gemini is available
+    print("  Setting up story content...")
+    try:
+        result = subprocess.run(["python", "-c", 
+                               "from app.story_generator import populate_default_stories; populate_default_stories()"], 
+                              capture_output=True, text=True)
+        if result.returncode == 0:
+            print("  ✅ Default stories populated successfully")
+        else:
+            print(f"  ⚠️ Story setup warning: {result.stderr[-200:]}")
+    except Exception as e:
+        print(f"  ⚠️ Story setup failed: {e}")
+    
     if not scraped_any:
         print("⚠️ Warning: No scrapers completed successfully")
     

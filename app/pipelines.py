@@ -1,6 +1,6 @@
 from app.database import SessionLocal, engine
-from app.models import Item, Part
-from app.crud import create_item, create_part
+from app.models import Item, Part, Story
+from app.crud import create_item, create_part, create_story
 
 class RonaldoItemsPipeline:
     """Pipeline to handle Ronaldo items from multiple sources (eBay, AliExpress, Schmiedmann, etc.)"""
@@ -16,11 +16,11 @@ class RonaldoItemsPipeline:
 
     def process_item(self, item, spider):
         try:
-            # Check if this is a new Item or legacy Part format
-            has_item_url = 'item_url' in item
-            has_era_or_category = 'era' in item or 'category' in item
-            
-            if has_item_url or has_era_or_category:
+            # Check item type based on content
+            if 'story_type' in item:
+                # This is a story item
+                return self._process_story(item, spider)
+            elif 'item_url' in item or 'era' in item or 'category' in item:
                 # This is a new Ronaldo item format
                 return self._process_ronaldo_item(item, spider)
             else:
@@ -88,6 +88,28 @@ class RonaldoItemsPipeline:
         
         # Create part in database (legacy)
         created_part = create_part(self.session, item)
+        self.items_processed += 1
+        
+        return item
+
+    def _process_story(self, item, spider):
+        """Process story items from story spider"""
+        # Validate required fields for stories
+        required_fields = ['title_en', 'content_en', 'story_type']
+        missing_fields = [field for field in required_fields if not item.get(field)]
+        
+        if missing_fields:
+            spider.logger.warning(f"⚠️ Story missing required fields {missing_fields}: {item}")
+            return item
+        
+        # Log story details
+        title = item.get('title_en', 'Unknown Title')[:50]
+        story_type = item.get('story_type', 'unknown')
+        era = item.get('era', 'General')
+        spider.logger.debug(f"📚 Processing {story_type} story: {title}... [{era}]")
+        
+        # Create story in database
+        created_story = create_story(self.session, item)
         self.items_processed += 1
         
         return item

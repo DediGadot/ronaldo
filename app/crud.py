@@ -72,3 +72,48 @@ def get_parts(db: Session, series: str | None = None, source: str | None = None,
 
 def get_part(db: Session, part_id: int):
     return db.query(models.Part).filter(models.Part.id == part_id).first()
+
+# Story CRUD operations
+def get_story_by_title(db: Session, title_en: str):
+    return db.query(models.Story).filter(models.Story.title_en == title_en).first()
+
+def create_story(db: Session, story_data: dict):
+    # Check if story with this title already exists
+    existing_story = get_story_by_title(db, story_data.get('title_en', ''))
+    if existing_story:
+        # Update existing story with new data
+        for key, value in story_data.items():
+            if hasattr(existing_story, key):
+                setattr(existing_story, key, value)
+        db.commit()
+        db.refresh(existing_story)
+        return existing_story
+    
+    # Create new story
+    db_story = models.Story(**story_data)
+    db.add(db_story)
+    db.commit()
+    db.refresh(db_story)
+    return db_story
+
+def get_stories(db: Session, era: str | None = None, team: str | None = None, 
+                story_type: str | None = None, skip: int = 0, limit: int = 20):
+    query = db.query(models.Story)
+    if era:
+        query = query.filter(models.Story.era == era)
+    if team:
+        query = query.filter(models.Story.team == team)
+    if story_type:
+        query = query.filter(models.Story.story_type == story_type)
+    
+    # Order by importance score descending
+    query = query.order_by(models.Story.importance_score.desc())
+    
+    return query.offset(skip).limit(limit).all()
+
+def get_story(db: Session, story_id: int):
+    return db.query(models.Story).filter(models.Story.id == story_id).first()
+
+def get_stories_by_filter(db: Session, era: str | None = None, team: str | None = None, limit: int = 10):
+    """Helper function for story generator"""
+    return get_stories(db, era=era, team=team, limit=limit)
