@@ -1,16 +1,16 @@
-import { useState } from 'react';
+import { useState, memo, useMemo, useCallback } from 'react';
 import './StoryBox.css';
 
-function StoryBox({ story, onFindRelated }) {
+const StoryBox = memo(function StoryBox({ story, onFindRelated }) {
   const [isExpanded, setIsExpanded] = useState(true); // Default to expanded
   const [isLiked, setIsLiked] = useState(false);
   const [shareCount, setShareCount] = useState(Math.floor(Math.random() * 50) + 10);
 
-  const toggleExpanded = () => {
+  const toggleExpanded = useCallback(() => {
     setIsExpanded(!isExpanded);
-  };
+  }, [isExpanded]);
 
-  const getStoryIcon = () => {
+  const storyIcon = useMemo(() => {
     const icons = {
       milestone: '🏆',
       record: '📊',
@@ -20,9 +20,9 @@ function StoryBox({ story, onFindRelated }) {
       match: '⚽'
     };
     return icons[story.story_type] || '🌟';
-  };
+  }, [story.story_type]);
 
-  const getStoryEmojiReactions = () => {
+  const emojiReactions = useMemo(() => {
     const reactions = {
       milestone: ['🏆', '🔥', '😍', '🤩'],
       record: ['💪', '😱', '👏', '🤯'],
@@ -32,9 +32,9 @@ function StoryBox({ story, onFindRelated }) {
       match: ['⚽', '🔥', '🎆', '🙌']
     };
     return reactions[story.story_type] || ['👍', '❤️', '😍', '🤩'];
-  };
+  }, [story.story_type]);
 
-  const getStoryTypeLabel = () => {
+  const storyTypeLabel = useMemo(() => {
     const labels = {
       milestone: 'אבן דרך',
       record: 'שיא',
@@ -44,18 +44,18 @@ function StoryBox({ story, onFindRelated }) {
       match: 'משחק היסטורי'
     };
     return labels[story.story_type] || 'סיפור';
-  };
+  }, [story.story_type]);
 
   return (
     <div className="story-box">
       <div className="story-spotlight"></div>
       <div className="story-header">
         <div className="story-icon-container">
-          <div className="story-icon">{getStoryIcon()}</div>
+          <div className="story-icon">{storyIcon}</div>
           <div className="icon-glow"></div>
         </div>
         <div className="story-meta">
-          <span className="story-type">{getStoryTypeLabel()}</span>
+          <span className="story-type">{storyTypeLabel}</span>
           {story.era && <span className="story-era">🏆 {story.era}</span>}
           {story.year && <span className="story-year">📅 {story.year}</span>}
         </div>
@@ -63,7 +63,7 @@ function StoryBox({ story, onFindRelated }) {
           <div className="like-counter">
             <button 
               className={`like-btn ${isLiked ? 'liked' : ''}`}
-              onClick={() => setIsLiked(!isLiked)}
+              onClick={useCallback(() => setIsLiked(!isLiked), [isLiked])}
             >
               {isLiked ? '❤️' : '🤍'}
             </button>
@@ -101,14 +101,14 @@ function StoryBox({ story, onFindRelated }) {
       <div className="story-reactions">
         <div className="reaction-title">איך הסיפור גרם לך להרגיש?</div>
         <div className="reaction-buttons">
-          {getStoryEmojiReactions().map((emoji, index) => (
+          {emojiReactions.map((emoji, index) => (
             <button 
               key={index}
               className="reaction-btn"
-              onClick={(e) => {
+              onClick={useCallback((e) => {
                 e.currentTarget.classList.add('reacted');
                 setTimeout(() => e.currentTarget.classList.remove('reacted'), 600);
-              }}
+              }, [])}
             >
               {emoji}
             </button>
@@ -123,7 +123,7 @@ function StoryBox({ story, onFindRelated }) {
         </button>
         {story.related_search_terms && (
           <button 
-            onClick={() => {
+            onClick={useCallback(() => {
               onFindRelated(story.related_search_terms);
               // Add visual feedback
               const btn = document.querySelector('.related-btn');
@@ -131,7 +131,7 @@ function StoryBox({ story, onFindRelated }) {
                 btn.classList.add('searching');
                 setTimeout(() => btn.classList.remove('searching'), 1000);
               }
-            }} 
+            }, [onFindRelated, story.related_search_terms])}
             className="related-btn"
           >
             <span className="btn-icon">🔍</span>
@@ -141,7 +141,7 @@ function StoryBox({ story, onFindRelated }) {
         )}
         <button 
           className="share-btn"
-          onClick={() => {
+          onClick={useCallback(() => {
             if (navigator.share) {
               navigator.share({
                 title: story.title_he || story.title_en,
@@ -159,7 +159,7 @@ function StoryBox({ story, onFindRelated }) {
                 }, 2000);
               }
             }
-          }}
+          }, [story.title_he, story.title_en, story.summary_he, story.summary_en])}
         >
           <span className="btn-icon">🔗</span>
           שתף סיפור
@@ -184,17 +184,17 @@ function StoryBox({ story, onFindRelated }) {
         <div className="meter-bar">
           <div 
             className="meter-fill" 
-            style={{
+            style={useMemo(() => ({
               width: `${story.story_type === 'milestone' ? '95%' : 
                        story.story_type === 'record' ? '90%' :
                        story.story_type === 'match' ? '85%' :
                        story.story_type === 'personal' ? '75%' : '70%'}`
-            }}
+            }), [story.story_type])}
           ></div>
         </div>
       </div>
     </div>
   );
-}
+});
 
 export default StoryBox;

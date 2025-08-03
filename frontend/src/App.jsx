@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import PartCard from './components/PartCard';
 import StoryBox from './components/StoryBox';
 import './App.css';
@@ -98,7 +98,7 @@ function App() {
     } finally {
       setIsLoading(false);
     }
-  }, [skip, isLoading, era, category, selectedSources]);
+  }, [skip, isLoading]);
 
   useEffect(() => {
     setParts([]);
@@ -146,7 +146,7 @@ function App() {
   }, [fetchStories]);
 
   // Handler for finding related items
-  const handleFindRelated = (searchTerms) => {
+  const handleFindRelated = useCallback((searchTerms) => {
     const terms = searchTerms.split(',').map(term => term.trim());
     
     // Find the best matching era and category from search terms
@@ -200,10 +200,25 @@ function App() {
     if (foundEra || foundCategory) {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-  };
+  }, [era, category]);
 
-  // Render items with stories interspersed
-  const renderItemsWithStories = () => {
+  // Memoized story positions calculation
+  const storyPositions = useMemo(() => {
+    if (stories.length === 0) return [];
+    
+    const positions = [];
+    let currentPos = 3; // Start at position 3 (after 3 items) for first story
+    
+    while (currentPos < parts.length) {
+      positions.push(currentPos);
+      currentPos += 4; // Exactly every 4 items
+    }
+    
+    return positions;
+  }, [stories.length, parts.length]);
+
+  // Memoized rendered items with stories
+  const renderedElements = useMemo(() => {
     const elements = [];
     
     // If no parts, show stories anyway
@@ -218,19 +233,6 @@ function App() {
         );
       });
       return elements;
-    }
-
-    // Calculate story positions - exactly every 4 items
-    const storyPositions = [];
-    if (stories.length > 0) {
-      // Start at position 3 (after 3 items) for first story
-      let currentPos = 3;
-      
-      // Add story every 4 items
-      while (currentPos < parts.length) {
-        storyPositions.push(currentPos);
-        currentPos += 4; // Exactly every 4 items
-      }
     }
 
     // Render parts with stories at calculated positions
@@ -255,21 +257,33 @@ function App() {
       }
     });
 
-
     return elements;
-  };
+  }, [parts, stories, storyPositions, handleFindRelated]);
 
-  // Infinite scroll handler
+  // Throttled scroll handler for better performance
+  const scrollTimeoutRef = useRef(null);
+  
   useEffect(() => {
     const handleScroll = () => {
-      if (window.innerHeight + document.documentElement.scrollTop < document.documentElement.offsetHeight - 300 || isLoading || !hasMore) {
-        return;
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
       }
-      fetchItems();
+      
+      scrollTimeoutRef.current = setTimeout(() => {
+        if (window.innerHeight + document.documentElement.scrollTop < document.documentElement.offsetHeight - 300 || isLoading || !hasMore) {
+          return;
+        }
+        fetchItems();
+      }, 100); // 100ms throttle
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
+      }
+    };
   }, [fetchItems, isLoading, hasMore]);
 
   return (
@@ -348,8 +362,7 @@ function App() {
       </header>
       <main>
         <div className="items-grid">
-          
-          {renderItemsWithStories()}
+          {renderedElements}
         </div>
         {isLoading && (
           <div className="loading-message">

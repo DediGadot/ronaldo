@@ -24,9 +24,10 @@
   left: -50%;
   width: 200%;
   height: 200%;
-  background: radial-gradient(circle at center, rgba(255, 215, 0, 0.1) 0%, transparent 70%);
-  animation: spotlightMove 15s ease-in-out infinite;
+  background: radial-gradient(circle at center, rgba(255, 215, 0, 0.05) 0%, transparent 70%);
+  animation: spotlightMove 20s ease-in-out infinite;
   pointer-events: none;
+  will-change: transform;
 }
 
 @keyframes spotlightMove {
@@ -108,9 +109,10 @@
   transform: translate(-50%, -50%);
   width: 60px;
   height: 60px;
-  background: radial-gradient(circle, rgba(212, 175, 55, 0.3) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.2) 0%, transparent 70%);
   border-radius: 50%;
-  animation: iconGlow 3s ease-in-out infinite alternate;
+  animation: iconGlow 4s ease-in-out infinite alternate;
+  will-change: transform, opacity;
 }
 
 @keyframes iconGlow {
@@ -168,9 +170,10 @@
   -webkit-text-fill-color: transparent;
   background-clip: text;
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
-  animation: iconPulse 3s ease-in-out infinite;
+  animation: iconPulse 4s ease-in-out infinite;
   position: relative;
   z-index: 2;
+  will-change: transform;
 }
 
 @keyframes iconPulse {
@@ -422,11 +425,12 @@
   width: 200%;
   height: 200%;
   background-image: 
-    radial-gradient(circle at 20% 80%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(255, 215, 0, 0.1) 0%, transparent 50%);
-  animation: rotate 30s linear infinite;
+    radial-gradient(circle at 20% 80%, rgba(212, 175, 55, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255, 215, 0, 0.05) 0%, transparent 50%);
+  animation: rotate 40s linear infinite;
   pointer-events: none;
-  opacity: 0.5;
+  opacity: 0.3;
+  will-change: transform;
 }
 
 @keyframes rotate {
@@ -448,8 +452,9 @@
 .float-element {
   position: absolute;
   font-size: 1.5rem;
-  opacity: 0.1;
-  animation: floatAround 12s ease-in-out infinite;
+  opacity: 0.08;
+  animation: floatAround 15s ease-in-out infinite;
+  will-change: transform;
 }
 
 .element-1 {
@@ -515,8 +520,9 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.3) 50%, transparent 100%);
-  animation: meterShine 2s ease-in-out infinite;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.2) 50%, transparent 100%);
+  animation: meterShine 3s ease-in-out infinite;
+  will-change: transform;
 }
 
 @keyframes meterShine {
@@ -569,7 +575,42 @@
     font-size: 1.3rem;
   }
   
+  /* Disable heavy animations on mobile for better performance */
   .floating-elements {
     display: none;
+  }
+  
+  .story-spotlight,
+  .story-box::before {
+    animation: none;
+  }
+  
+  .icon-glow {
+    animation: none;
+    opacity: 0.3;
+  }
+}
+
+/* Reduce animations for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .story-spotlight,
+  .story-box::before,
+  .icon-glow,
+  .story-icon,
+  .float-element,
+  .meter-fill::after {
+    animation: none;
+  }
+  
+  .icon-glow {
+    opacity: 0.3;
+  }
+  
+  .floating-elements {
+    display: none;
+  }
+  
+  .story-box {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
   }
 }

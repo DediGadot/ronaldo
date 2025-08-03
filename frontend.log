@@ -9,3 +9,7 @@
   ➜  Network: http://178.128.97.172:5173/
   ➜  Network: http://10.15.0.6:5173/
   ➜  Network: http://10.104.0.3:5173/
+3:03:51 PM [vite] (client) hmr update /src/App.jsx
+3:05:02 PM [vite] (client) hmr update /src/components/PartCard.jsx
+3:05:51 PM [vite] (client) hmr update /src/components/StoryBox.jsx
+3:06:48 PM [vite] (client) hmr update /src/components/StoryBox.css
