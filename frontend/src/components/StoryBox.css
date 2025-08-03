@@ -530,64 +530,225 @@
   100% { transform: translateX(100%); }
 }
 
-/* Responsive design */
-@media (max-width: 768px) {
+/* Enhanced Mobile-First Responsive Design for StoryBox */
+
+/* Mobile devices (320px - 599px) */
+@media (max-width: 599px) {
   .story-box {
     grid-column: span 1;
-    padding: 1.5rem;
-    min-height: 350px;
+    padding: 1.2rem;
+    margin: 1rem 0;
+    min-height: 300px;
+    border-radius: 15px;
   }
-  
+
   .story-title {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
+    line-height: 1.4;
+    margin-bottom: 1rem;
   }
-  
+
   .story-icon {
-    font-size: 2.5rem;
+    font-size: 2rem;
   }
-  
+
   .story-header {
     flex-direction: column;
     align-items: flex-start;
-    gap: 1rem;
+    gap: 0.8rem;
+    margin-bottom: 1rem;
   }
-  
+
+  .story-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    width: 100%;
+  }
+
+  .story-type, .story-era, .story-year {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.6rem;
+  }
+
   .story-engagement {
-    align-self: center;
+    align-self: flex-end;
+    margin-top: -2rem;
   }
-  
+
+  .like-btn {
+    padding: 0.4rem;
+    font-size: 1.2rem;
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  .story-summary {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  .story-full-content {
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+
   .story-actions {
     flex-direction: column;
+    gap: 0.8rem;
   }
-  
+
   .expand-btn, .related-btn, .share-btn {
     width: 100%;
     justify-content: center;
+    min-height: 48px;
+    padding: 0.8rem 1.2rem;
+    font-size: 0.95rem;
   }
-  
+
   .reaction-buttons {
-    gap: 0.5rem;
+    gap: 0.4rem;
+    justify-content: space-evenly;
   }
-  
+
   .reaction-btn {
-    width: 45px;
-    height: 45px;
-    font-size: 1.3rem;
+    width: 44px;
+    height: 44px;
+    font-size: 1.2rem;
+    min-width: 44px;
+    min-height: 44px;
   }
-  
+
+  .story-reactions {
+    padding: 0.8rem;
+    margin: 1rem 0;
+  }
+
+  .reaction-title {
+    font-size: 0.85rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .story-impact-meter {
+    padding: 0.8rem;
+    margin-top: 1rem;
+  }
+
+  .meter-label {
+    font-size: 0.8rem;
+  }
+
+  .corner-accent {
+    width: 40px;
+    height: 40px;
+    border-width: 2px;
+  }
+
   /* Disable heavy animations on mobile for better performance */
   .floating-elements {
     display: none;
   }
-  
+
   .story-spotlight,
   .story-box::before {
     animation: none;
   }
-  
+
   .icon-glow {
     animation: none;
     opacity: 0.3;
+  }
+
+  /* Optimize touch interactions */
+  .story-source {
+    min-height: 44px;
+    padding: 0.6rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+}
+
+/* Small tablets and large phones (600px - 767px) */
+@media (min-width: 600px) and (max-width: 767px) {
+  .story-box {
+    grid-column: span 1;
+    padding: 1.8rem;
+    min-height: 380px;
+  }
+
+  .story-title {
+    font-size: 1.6rem;
+  }
+
+  .story-icon {
+    font-size: 2.3rem;
+  }
+
+  .story-actions {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+  }
+
+  .expand-btn, .related-btn, .share-btn {
+    flex: 1;
+    min-width: 140px;
+  }
+}
+
+/* Medium tablets (768px - 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .story-box {
+    grid-column: span 2;
+    padding: 2rem;
+    min-height: 400px;
+  }
+
+  .story-title {
+    font-size: 1.8rem;
+  }
+
+  .story-icon {
+    font-size: 2.7rem;
+  }
+
+  .story-header {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .story-engagement {
+    align-self: center;
+    margin-top: 0;
+  }
+
+  .story-actions {
+    flex-direction: row;
+    gap: 1rem;
+  }
+
+  .expand-btn, .related-btn, .share-btn {
+    width: auto;
+    flex: 1;
+  }
+}
+
+/* Large screens (1024px+) */
+@media (min-width: 1024px) {
+  .story-box {
+    grid-column: span 2;
+    padding: 2.5rem;
+    min-height: 400px;
+  }
+
+  .story-title {
+    font-size: 2rem;
+  }
+
+  .story-icon {
+    font-size: 3rem;
   }
 }
 
